@@ -18,6 +18,27 @@ export default class Game extends Component {
         this.state = {
             items
         }
+
+        this.handleAnswer = this.handleAnswer.bind(this);
+    }
+
+    handleAnswer(event, item, index, answer){
+
+        console.log(item.displayed, answer)
+        this.props.handleScore(item.displayed === answer)
+
+            const items = this.state.items.map((i) => {
+                if(i === item){
+
+                    if(i.displayed){
+                        return i
+                    } else {
+                        i.displayed = true;
+                        return i;
+                    }
+                } else return i
+            })
+            this.setState({ items })
     }
 
     randomItem(){
@@ -27,10 +48,12 @@ export default class Game extends Component {
 
     render() {
         const {items} = this.state;
+        const index = this.randomItem()
+        const item = items[index]
     return (
-      <main>
-        <p>{items[this.randomItem()].content}</p>
-        <Prompt />
+      <main className='game'>
+        <p id={index}>{item.content}</p>
+        <Prompt handleAnswer={this.handleAnswer} index={index} item={item} />
       </main>
     )
   }
