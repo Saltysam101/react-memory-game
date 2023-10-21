@@ -29,12 +29,14 @@ export default class Game extends Component {
 
             const items = this.state.items.map((i) => {
                 if(i === item){
-
-                    if(i.displayed){
+                    if(i.displayed === answer){
+                        console.log(i)
+                        i.displayed = true
                         return i
                     } else {
-                        i.displayed = true;
-                        return i;
+                        console.log("false", i)
+                        i.displayed = false
+                        return i
                     }
                 } else return i
             })
